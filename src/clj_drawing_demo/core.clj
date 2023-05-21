@@ -59,7 +59,7 @@
 
   (q/no-stroke)
   (doseq [[fnc fill] (map list
-                          [#(Math/sin %) #(* 3 (Math/cos %)) #(Math/pow % 3)]
+                          [#(/ 1 %) #(* 3 (Math/cos %)) #(Math/pow % 3)]
                           [[52 235 192] [252 88 28] [250 22 193]])]
     (apply q/fill fill)
     (gr/draw-f fnc

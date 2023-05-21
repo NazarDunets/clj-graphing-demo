@@ -22,11 +22,15 @@
 (defn draw-f
   ([f xo yo zoom e-nth]
    (doseq [x-value (map #(/ (+ xo %) zoom) (generate-x-arguments (q/width) e-nth))]
-     (let [y-pixel (+ yo (* zoom (f x-value)))]
-       (q/ellipse
-         (+ (* x-value zoom) (- xo) (/ (q/width) 2))
-         (- (/ (q/height) 2.0) y-pixel)
-         4 4 )
+     (let [y-pixel (try (+ yo (* zoom (f x-value)))
+                        (catch Exception e nil))]
+       (if (not (nil? y-pixel))
+         (q/ellipse
+           (+ (* x-value zoom) (- xo) (/ (q/width) 2))
+           (- (/ (q/height) 2.0) y-pixel)
+           4 4)
+         nil
+         )
        )
      )
    )
